@@ -7,8 +7,8 @@ let computerScore = 0;
 // Ovanstående deklarationer måste stå innan man kallar på funktionen om man inte gjort en destructuring assignment. Error annars.
 inputs();
 
-//Kontrollerar att spelares val existerar i validInputs. Genererar fram datorns val genom att slumpa validInputs via index.
-//Skickar sedan spelarval och datorval till funktionen chooseWinner.
+// Kontrollerar att spelares val existerar i validInputs. Genererar fram datorns val genom att slumpa validInputs via index.
+// Skickar sedan spelarval och datorval till funktionen chooseWinner.
 function inputs() {
     let playerChoice = window.prompt(`Välj antingen sten, sax eller påse`).toLowerCase();
     let validInputs = [`sten`, `sax`, `påse`];
@@ -16,51 +16,42 @@ function inputs() {
 
     if (!validInputs.includes(playerChoice)) {
         window.alert(`${playerChoice} är inte en godkänd input.`);
+        inputs(); // Om vi inte anropar funktionen igen så stoppar spelet.
     }
     else {
-        chooseWinner(playerChoice, computerChoice);
+        chooseWinner(playerChoice, computerChoice); // Vi skickar variabeln playerChoice och computerChoice när vi anropar nästa funktion.
     }
 }
 
 // Tar emot spelarval och datorval för att avgöra vinnare. Uppdaterar poängen som är deklarerade utanför funktionerna.
 // Efter varje omgång skickas poängen till pointsTracker-funktionen som undersöker om någon fått 3 poäng.
 function chooseWinner(playerChoice, computerChoice) {
-    if (playerChoice === `sten` && computerChoice === `sax`) {
-        playerScore++
-        window.alert(`Din ${playerChoice} bankade skiten ur ${computerChoice}!
+    // Kollar först alla spelarval som leder till vinst.
+    if (playerChoice === `sten` && computerChoice === `sax` || playerChoice === `sax` && computerChoice === `påse` || playerChoice === `påse` && computerChoice === `sten`) {
+        playerScore++ // Ökar variabeln playerScore med 1
+        window.alert(`Din ${playerChoice} trumfade datorns ${computerChoice}!
         Spelare: ${playerScore}
         Datorn: ${computerScore}`);
     }
-    else if (playerChoice === `sax` && computerChoice === `påse`) {
-        playerScore++
-        window.alert(`Din ${playerChoice} klippte skiten ur datorns ${computerChoice}!
-        Spelare: ${playerScore}
-        Datorn: ${computerScore}`);
-    }
-    else if (playerChoice === `påse` && computerChoice === `sten`) {
-        playerScore++
-        window.alert(`Din ${playerChoice} fångade datorns ${computerChoice}!
-        Spelare: ${playerScore}
-        Datorn: ${computerScore}`);
-    }
-    // Utan return; får man ett extra window.alert att klicka bort efter totalvinst för varje omgång som blivit oavgjord. 
-    // Enligt chatGPT skickas ett nullvärde om det inte står med. ¯\_(ツ)_/¯ 
-    else if (playerChoice === computerChoice) {
+    // Ifall spelarval är densamma som datornsval går vi tillbaka till funktionen inputs()
+    else if (playerChoice === computerChoice) { 
         window.alert(`Ni valde båda ${playerChoice} vi kör igen!
         Spelare: ${playerScore}
         Datorn: ${computerScore}`);
         inputs();
-        return;
+        return;     // Utan return; får man ett extra window.alert att klicka bort efter totalvinst för varje omgång som blivit oavgjord. 
+                    // Enligt chatGPT skickas ett nullvärde om det inte står med. ¯\_(ツ)_/¯ 
     }
+    // Om det inte är oavgjort eller om inte spelare har vunnit så har datorn vunnit. 
     else {
-        computerScore++
+        computerScore++ // Ökar variabeln computerScore med 1
         window.alert(`Datorn vann med sin ${computerChoice} mot din ${playerChoice}!
         Spelare: ${playerScore}
         Datorn: ${computerScore}`)
     }
-    pointsTracker(playerScore, computerScore);
+    pointsTracker(playerScore, computerScore); // då variablerna playerScore och computerScore har global scope kan vi skickad dem innifrån den här funktionen till funktionen pointsTracker();
 }
-
+// funktionen tar emot playerScore och computerScore och sparar dem i två parametrar med samma namn (men behöver inte ha det). 
 function pointsTracker(playerScore, computerScore) {
     if (playerScore === 3) {
         window.alert(`Grattis du dängde datorn med ${playerScore} poäng mot datorns ${computerScore} poäng`)
