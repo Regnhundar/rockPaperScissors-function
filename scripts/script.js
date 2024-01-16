@@ -1,6 +1,6 @@
 // Uppgift: Gör om ditt sten, sax och påse - spel så du använder funktioner och försöker återanvända kod.
 
-//Deklarerade utanför funktioner för att inte få problem med "scope". Går att lösa med "Destructuring Assignment" men känns överkurs nu.
+//Deklarerade utanför funktioner för att inte få problem med "scope". Går att lösa med "Destructuring Assignment" enligt chatGPT.
 let playerScore = 0;
 let computerScore = 0;
 
@@ -49,10 +49,10 @@ function chooseWinner(spelarVal, datorVal) {
         Spelare: ${playerScore}
         Datorn: ${computerScore}`)
     }
-    pointsTracker(playerScore, computerScore); // då variablerna playerScore och computerScore har global scope kan vi skickad dem innifrån den här funktionen till funktionen pointsTracker();
+    pointsTracker(); // då variablerna playerScore och computerScore har global scope behöver vi inte skicka med något i anropet.
 }
 // funktionen tar emot playerScore och computerScore och sparar dem i två parametrar med samma namn (men behöver inte ha det). 
-function pointsTracker(playerScore, computerScore) {
+function pointsTracker() {
     if (playerScore === 3) {
         window.alert(`Grattis du dängde datorn med ${playerScore} poäng mot datorns ${computerScore} poäng`)
     }
