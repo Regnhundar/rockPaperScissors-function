@@ -49,9 +49,9 @@ function chooseWinner(spelarVal, datorVal) {
         Spelare: ${playerScore}
         Datorn: ${computerScore}`)
     }
-    pointsTracker(); // då variablerna playerScore och computerScore har global scope behöver vi inte skicka med något i anropet.
+    pointsTracker(); // Vi anropar funktionen pointsTracker för att kolla poängen. Då variablerna playerScore och computerScore har global scope behöver vi inte skicka med något i anropet.
 }
-// funktionen tar emot playerScore och computerScore och sparar dem i två parametrar med samma namn (men behöver inte ha det). 
+// funktionen kollar ifall spelaren eller datorn har 3 poäng. Om inte så anropas inputs() igen.
 function pointsTracker() {
     if (playerScore === 3) {
         window.alert(`Grattis du dängde datorn med ${playerScore} poäng mot datorns ${computerScore} poäng`)
