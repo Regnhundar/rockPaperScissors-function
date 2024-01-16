@@ -23,19 +23,19 @@ function inputs() {
     }
 }
 
-// Tar emot spelarval och datorval för att avgöra vinnare. Uppdaterar poängen som är deklarerade utanför funktionerna.
+// Tar emot spelarval och datorval för att avgöra vinnare. Vi sparar dem i parametrarna spelarVal och datorVal. Uppdaterar poängen som är deklarerade utanför funktionerna.
 // Efter varje omgång skickas poängen till pointsTracker-funktionen som undersöker om någon fått 3 poäng.
-function chooseWinner(playerChoice, computerChoice) {
+function chooseWinner(spelarVal, datorVal) {
     // Kollar först alla spelarval som leder till vinst.
-    if (playerChoice === `sten` && computerChoice === `sax` || playerChoice === `sax` && computerChoice === `påse` || playerChoice === `påse` && computerChoice === `sten`) {
+    if (spelarVal === `sten` && datorVal === `sax` || spelarVal === `sax` && datorVal === `påse` || spelarVal === `påse` && datorVal === `sten`) {
         playerScore++ // Ökar variabeln playerScore med 1
-        window.alert(`Din ${playerChoice} trumfade datorns ${computerChoice}!
+        window.alert(`Din ${spelarVal} trumfade datorns ${datorVal}!
         Spelare: ${playerScore}
         Datorn: ${computerScore}`);
     }
     // Ifall spelarval är densamma som datornsval går vi tillbaka till funktionen inputs()
-    else if (playerChoice === computerChoice) { 
-        window.alert(`Ni valde båda ${playerChoice} vi kör igen!
+    else if (spelarVal === datorVal) { 
+        window.alert(`Ni valde båda ${spelarVal} vi kör igen!
         Spelare: ${playerScore}
         Datorn: ${computerScore}`);
         inputs();
@@ -45,7 +45,7 @@ function chooseWinner(playerChoice, computerChoice) {
     // Om det inte är oavgjort eller om inte spelare har vunnit så har datorn vunnit. 
     else {
         computerScore++ // Ökar variabeln computerScore med 1
-        window.alert(`Datorn vann med sin ${computerChoice} mot din ${playerChoice}!
+        window.alert(`Datorn vann med sin ${datorVal} mot din ${spelarVal}!
         Spelare: ${playerScore}
         Datorn: ${computerScore}`)
     }
